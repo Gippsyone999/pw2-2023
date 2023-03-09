@@ -1,0 +1,11 @@
+body{
+    background-color: rgb(204, 149, 248);
+    background-size: cover;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    padding: 0.2em;
+    font-family: Montserrat, sans-serif;
+}
