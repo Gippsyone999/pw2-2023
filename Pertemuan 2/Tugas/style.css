@@ -1,0 +1,37 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+body{
+    background-color: rgb(204, 149, 248);
+    background-size: cover;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    padding: 0.2em;
+    font-family: Montserrat, sans-serif;
+=======
+body{
+    background-color: rgb(204, 149, 248);
+    background-size: cover;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    padding: 0.2em;
+    font-family: Montserrat, sans-serif;
+>>>>>>> 8cdfdd24553335e7463ba1793dd2f5a91b611889
+=======
+body{
+    background-color: rgb(204, 149, 248);
+    background-size: cover;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    padding: 0.2em;
+    font-family: Montserrat, sans-serif;
+>>>>>>> 8cdfdd24553335e7463ba1793dd2f5a91b611889
+}
