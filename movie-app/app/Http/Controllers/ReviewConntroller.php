@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Review;
+use App\models\Review;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -13,10 +13,9 @@ class ReviewConntroller extends Controller
      */
     public function index()
     {
-        $review = new review;
-        $data2 = $review->getAllreviews();
+        $Reviews = Review::all();
 
-        return view ('reviews/index', ['reviews' => $data2]);
+        return view ('Reviews.index', compact('Reviews'));
     }
 
     /**
@@ -38,7 +37,7 @@ class ReviewConntroller extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Review $Review)
+    public function show(Review $Reviews)
     {
         //
     }
@@ -46,7 +45,7 @@ class ReviewConntroller extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Review $Review)
+    public function edit(Review $Reviews)
     {
         //
     }
@@ -54,7 +53,7 @@ class ReviewConntroller extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Review $Review)
+    public function update(Request $request, Review $Reviews)
     {
         //
     }
@@ -62,7 +61,7 @@ class ReviewConntroller extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Review $Review)
+    public function destroy(Review $Reviews)
     {
         //
     }
