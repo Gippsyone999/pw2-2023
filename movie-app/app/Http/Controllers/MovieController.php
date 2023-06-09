@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Movie;
 use App\Http\Controllers\Controller;
+use App\Models\Genre;
 use Illuminate\Http\Request;
 
 class MovieController extends Controller
@@ -23,7 +24,8 @@ class MovieController extends Controller
      */
     public function create()
     {
-        //
+        $genres = Genre::all();
+        return view('movies.create', compact('genres'));
     }
 
     /**
@@ -31,7 +33,17 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'judul' => 'required',
+            'poster' => 'required',
+            'genre_id' => 'required',
+            'negara' => 'required',
+            'tahun' => 'required|integer',
+            'rating' => 'required|numeric'
+        ]);
+
+        Movie::create($validateData);
+        return redirect('/movies')->with('success', 'Data berhasil ditambahkan');
     }
 
     /**
@@ -45,9 +57,10 @@ class MovieController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Movie $movie)
-    {
-        //
+    public function edit(Movie $movies)
+    {   
+        $genres = Genre::all();
+        return view('movies.edit', compact('movies','genres'));
     }
 
     /**
@@ -55,7 +68,17 @@ class MovieController extends Controller
      */
     public function update(Request $request, Movie $movie)
     {
-        //
+        $validateData = $request->validate([
+            'judul' => 'required',
+            'poster' => 'required',
+            'genre_id' => 'required',
+            'negara' => 'required',
+            'tahun' => 'required|integer',
+            'rating' => 'required|numeric'
+        ]);
+
+        $movie->update($validateData);
+        return redirect('/movies')->with('success', 'Data berhasil terupdate');
     }
 
     /**
@@ -63,6 +86,8 @@ class MovieController extends Controller
      */
     public function destroy(Movie $movie)
     {
-        //
+        $movie->delete();
+        return redirect('/movies')->with('success', 'Movie deleted successfully!');
+        
     }
 }

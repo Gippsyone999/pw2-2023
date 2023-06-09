@@ -13,10 +13,9 @@ class GenreController extends Controller
      */
     public function index()
     {
-        $genre = new genre;
-        $data1 = $genre->getAllgenres();
+        $genres = Genre::all();
 
-        return view ('genres/index', ['genres' => $data1]);
+        return view('genres.index', compact('genres'));
     }
 
     /**
@@ -24,7 +23,8 @@ class GenreController extends Controller
      */
     public function create()
     {
-        //
+        $genres = Genre::all();
+        return view('genres.create', compact('genres'));
     }
 
     /**
@@ -32,7 +32,13 @@ class GenreController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateData = $request->validate([
+            'Nama' => 'required',
+            'Deskripsi' => 'required'
+        ]);
+
+        Genre::create($validateData);
+        return redirect('/genres')->with('success', 'Data baru ditambahkan');
     }
 
     /**
@@ -64,6 +70,7 @@ class GenreController extends Controller
      */
     public function destroy(Genre $genre)
     {
-        //
+        $genre->delete();
+        return redirect('/genres')->with('success', 'genre deleted Successfully!');
     }
 }
