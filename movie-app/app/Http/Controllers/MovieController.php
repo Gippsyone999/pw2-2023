@@ -60,6 +60,7 @@ class MovieController extends Controller
     public function edit(Movie $movies)
     {   
         $genres = Genre::all();
+        
         return view('movies.edit', compact('movies','genres'));
     }
 

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\models\Review;
+use App\models\review;
 use App\Http\Controllers\Controller;
 use App\Models\review as ModelsReview;
 use Illuminate\Http\Request;
@@ -14,9 +14,9 @@ class ReviewConntroller extends Controller
      */
     public function index()
     {
-        $Reviews = Review::all();
+        $reviews = Review::all();
 
-        return view ('Reviews.index', compact('Reviews'));
+        return view ('reviews.index', compact('reviews'));
     }
 
     /**
@@ -24,8 +24,9 @@ class ReviewConntroller extends Controller
      */
     public function create()
     {
-        $Reviews = Review::all();
-        return view('reviews.create', compact('Reviews'));
+        $reviews = Review::all();
+
+        return view('reviews.create', compact('reviews'));
         
     }
 
@@ -57,25 +58,34 @@ class ReviewConntroller extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Review $Reviews)
+    public function edit(Review $review)
     {
-        //
+        return view('reviews.edit', compact('review', 'review'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Review $Reviews)
+    public function update(Request $request, Review $review)
     {
-        //
+        $validateData = $request->validate([
+            'film' => 'required',
+            'user' => 'required',
+            'rating' => 'required|numeric',
+            'review' => 'required',
+            'tanggal' => 'required',
+        ]);
+
+        $review->update($validateData);
+        return redirect('/reviews')->with('success', 'data berhasil diupdate');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Review $Reviews)
+    public function destroy(Review $review)
     {
-        $Reviews->delete();
+        $review->delete();
         return redirect('/reviews')->with('success', 'Movie deleted successfully!');
     }
 }

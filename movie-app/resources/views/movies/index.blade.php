@@ -15,9 +15,7 @@
     @if (session('success'))
         <div class="alert alert-duccess">
             {{ session('success') }}
-
         </div>
-        
     @endif
     <div class="card mb-4">
         <div class="card-header">
