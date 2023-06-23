@@ -6,6 +6,7 @@ use App\Models\Movie;
 use App\Http\Controllers\Controller;
 use App\Models\Genre;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MovieController extends Controller
 {
@@ -42,6 +43,16 @@ class MovieController extends Controller
             'rating' => 'required|numeric'
         ]);
 
+        if ($request->hasFile('poster')) {
+            //set image name//
+            $extension = $request->file('poster')->getClientOriginalExtension();
+            $imageName = time() .'.'. $extension;
+
+            //store to storage//
+            $request->file('poster')->storeAs('assets/img', $imageName, 'public');
+            $validateData['poster'] = $imageName;
+        }
+
         Movie::create($validateData);
         return redirect('/movies')->with('success', 'Data berhasil ditambahkan');
     }
@@ -57,11 +68,11 @@ class MovieController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Movie $movies)
+    public function edit(Movie $movie)
     {   
         $genres = Genre::all();
         
-        return view('movies.edit', compact('movies','genres'));
+        return view('movies.edit', compact('movie','genres'));
     }
 
     /**
@@ -77,6 +88,19 @@ class MovieController extends Controller
             'tahun' => 'required|integer',
             'rating' => 'required|numeric'
         ]);
+
+        if ($request->hasFile('poster')) {
+            //Delet old image
+            Storage::disk('public')->delete('assets/img/' . $movie->poster);
+
+            //set image name//
+            $extension = $request->file('poster')->getClientOriginalExtension();
+            $imageName = time() .'.'. $extension;
+
+            //store to storage//
+            $request->file('poster')->storeAs('assets/img', $imageName, 'public');
+            $validateData['poster'] = $imageName;
+        }
 
         $movie->update($validateData);
         return redirect('/movies')->with('success', 'Data berhasil terupdate');
